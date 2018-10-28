@@ -169,19 +169,3 @@ print('\nBDJobs Data Scraping Completed Successfully\n')
 print('Total Jobs Found For Desired Category: {}\n'.format(total_jobs))
 
 print('All Jobs Saved In {} file.'.format(csv_file_name))
-
-
-def SearchBefore(value, a):
-    pos_a = value.find(a)
-    if pos_a == -1:
-        return ""
-    return value[0:pos_a]
-
-def SearchAfter(value, a):
-    pos_a = value.rfind(a)
-    if pos_a == -1:
-        return ""
-    adjusted_pos_a = pos_a + len(a)
-    if adjusted_pos_a >= len(value):
-        return ""
-    return value[adjusted_pos_a:]
