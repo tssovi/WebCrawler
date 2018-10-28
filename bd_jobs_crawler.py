@@ -2,7 +2,7 @@ import csv
 import requests
 from bs4 import BeautifulSoup
 
-def write_jobs_list_csv_file(job):
+def WriteJobsListInCSVFile(job):
 
     try:
         csv_writer.writerow(
@@ -53,7 +53,7 @@ print('Secretary/Receptionist ID: 14')
 print('Security/Support Service ID: 24')
 print('\n----------------------------------------------\n')
 
-print('[-1 for all Category]')
+print('[-1 For All Category]')
 category_id = int(input('~$ '))
 
 print('Input Search Keyword: [You Can Leave It Blank To Get All Jobs For This Category]')
@@ -122,7 +122,7 @@ while page_no <= max_page_no:
         max_page_no = int(max_page_no)
 
     for content in contents:
-        # A dictionary For Passing Data To write_jobs_list_csv_file Function
+        # A dictionary For Passing Data To WriteJobsListInCSVFile Function
         jobs_dict = {};
 
         # Find Education
@@ -152,8 +152,8 @@ while page_no <= max_page_no:
         jobs_dict['experience'] = content.find('div', {'class': 'exp-text-d'}).text.strip()
         jobs_dict['deadline'] = content.find('div', {'class': 'dead-text-d'}).text.strip()
 
-        # Call write_jobs_list_csv_file Function
-        write_jobs_list_csv_file(jobs_dict)
+        # Call WriteJobsListInCSVFile Function
+        WriteJobsListInCSVFile(jobs_dict)
 
         # Increment total_jobs
         total_jobs += 1
@@ -169,3 +169,19 @@ print('\nBDJobs Data Scraping Completed Successfully\n')
 print('Total Jobs Found For Desired Category: {}\n'.format(total_jobs))
 
 print('All Jobs Saved In {} file.'.format(csv_file_name))
+
+
+def SearchBefore(value, a):
+    pos_a = value.find(a)
+    if pos_a == -1:
+        return ""
+    return value[0:pos_a]
+
+def SearchAfter(value, a):
+    pos_a = value.rfind(a)
+    if pos_a == -1:
+        return ""
+    adjusted_pos_a = pos_a + len(a)
+    if adjusted_pos_a >= len(value):
+        return ""
+    return value[adjusted_pos_a:]
