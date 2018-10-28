@@ -47,7 +47,7 @@ def WriteMoviesListInCSVFile(movie):
                 'Rating': movie['rating'],
                 'Metascore': movie['metascore'],
                 'Votes': movie['votes'],
-                # 'Gross': movie['gross'],
+                'Gross': movie['gross'],
                 'IMDB Link': movie['imdb_url'],
              }
         )
@@ -179,7 +179,12 @@ while total_movies < movies_to_pick :
                 movies_dict['votes'] = content.find('span', {"name": 'nv'}).text.strip()
             except:
                 movies_dict['votes'] = 'N/A'
-            # movies_dict['gross'] = content.find('span', {"name": 'nv'}).text.strip()
+
+            try:
+                get_vote_span = content.find('span', {"name": 'nv'})
+                movies_dict['gross'] = get_vote_span.find_next_sibling('span', {"name": 'nv'}).text.strip()
+            except:
+                movies_dict['gross'] = 'N/A'
 
             if total_movies <= movies_to_pick:
                 # Call WriteMoviesListInCSVFile Function
